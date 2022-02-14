@@ -68,9 +68,7 @@ CREATE TABLE allocation(
 CREATE TABLE parking_employee (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
-    stadium VARCHAR(30),
     parking_lot VARCHAR(2),
-    FOREIGN KEY (stadium) REFERENCES stadium(name),
     FOREIGN KEY (parking_lot) REFERENCES parking_lot(name)
 );
 
@@ -156,19 +154,18 @@ INSERT INTO parking_space (number, lot, car, available, handicap) VALUES
     (0004, 'rC', NULL, True, False),
     (0005, 'rC', NULL, True, False);
 
-/*We can remove 'stadium' from this below? Since we connect the lot to the stadium*/
-INSERT INTO parking_employee (name, stadium, parking_lot) VALUES ('Working Man', 'Cowpokes Stadium', 'cA'),
-                                                                 ('Billy Worker', 'Cowpokes Stadium', 'cA'),
-                                                                 ('Jeff Workman', 'Cowpokes Stadium', 'cA'),
-                                                                 ('Bob Bobbyson', 'Cowpokes Stadium', 'cB'),
-                                                                 ('Test Man', 'Cowpokes Stadium', 'cB'),
-                                                                 ('Jeff Goldblum', 'Cowpokes Stadium', 'cB'),
-                                                                 ('Phil Collins', 'The Rodeo', 'rA'),
-                                                                 ('Nick Jonas', 'The Rodeo', 'rA'),
-                                                                 ('Kevin Jonas', 'The Rodeo', 'rA'),
-                                                                 ('Joe Jonas', 'The Rodeo', 'rC'),
-                                                                 ('Bonus Jonas', 'The Rodeo', 'rC'),
-                                                                 ('Demi Lovato', 'The Rodeo', 'rC');
+INSERT INTO parking_employee (name, parking_lot) VALUES ('Working Man', 'cA'),
+                                                         ('Billy Worker', 'cA'),
+                                                         ('Jeff Workman', 'cA'),
+                                                         ('Bob Bobbyson', 'cB'),
+                                                         ('Test Man', 'cB'),
+                                                         ('Jeff Goldblum', 'cB'),
+                                                         ('Phil Collins', 'rA'),
+                                                         ('Nick Jonas', 'rA'),
+                                                         ('Kevin Jonas', 'rA'),
+                                                         ('Joe Jonas', 'rC'),
+                                                         ('Bonus Jonas', 'rC'),
+                                                         ('Demi Lovato', 'rC');
 
 INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, event_date) VALUES ('cA', 0002, 'LOLSPD', 13,'Big Ol Tourney', '2022-02-19'),
                                                                                                   ('cA', 0005, '2SlWLOL', 15,'Big Ol Tourney', '2022-02-19'),
@@ -179,5 +176,11 @@ INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, e
                                                                                                   ('rC', 0001, '2FST4U', 35,'Practice Scrim', '2022-01-28'),
                                                                                                   ('rC', 0003, 'TESTTST', 35,'Practice Scrim', '2022-01-28');
 
-
-
+INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol Tourney', '2022-02-19', 7268905647),
+                                                                      ('Big Ol Tourney', '2022-02-19', 1234509876),
+                                                                      ('Small Lil Tourney', '2021-12-29', 1112222),
+                                                                      ('Practice Scrim', '2022-01-28', 7028584599),
+                                                                      ('Practice Scrim', '2022-01-28', 10010001),
+                                                                      ('Practice Scrim', '2021-11-18', 1112222),
+                                                                      ('Practice Scrim', '2021-11-18', 1211121121);
+SELECT * FROM car INNER JOIN allocation ON  event_date = '2022-01-28' AND license_plate = allocation.car;
