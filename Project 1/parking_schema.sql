@@ -42,6 +42,7 @@ CREATE TABLE parking_space (
     car VARCHAR(10),
     available BOOLEAN,
     handicap BOOLEAN,
+    is_Valet BOOLEAN,
     FOREIGN KEY (lot) REFERENCES parking_lot(name),
     FOREIGN KEY (car) REFERENCES car(license_plate),
     PRIMARY KEY (number, lot)
@@ -59,16 +60,22 @@ CREATE TABLE allocation(
     event_name VARCHAR(50),
     event_date DATE,
 
+    is_Valet BOOLEAN,
+    employee_park INT,
+    employee_return INT,
+
     FOREIGN KEY (employee) REFERENCES parking_employee(id),
     FOREIGN KEY (parking_lot, parking_space) REFERENCES parking_space(lot, number),
 
-    FOREIGN KEY (event_name, event_date) REFERENCES event(name, event_date)
+    FOREIGN KEY (event_name, event_date) REFERENCES event(name, event_date),
+    FOREIGN KEY (employee_park, employee_return) REFERENCES parking_employee(id)
 );
 
 CREATE TABLE parking_employee (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
     parking_lot VARCHAR(2),
+    valet_certified BOOLEAN,
     FOREIGN KEY (parking_lot) REFERENCES parking_lot(name)
 );
 
@@ -183,4 +190,5 @@ INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol T
                                                                       ('Practice Scrim', '2022-01-28', 10010001),
                                                                       ('Practice Scrim', '2021-11-18', 1112222),
                                                                       ('Practice Scrim', '2021-11-18', 1211121121);
+
 SELECT * FROM car INNER JOIN allocation ON  event_date = '2022-01-28' AND license_plate = allocation.car;
