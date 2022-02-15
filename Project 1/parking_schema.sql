@@ -1,3 +1,4 @@
+D
 CREATE DATABASE parking_db;
 
 CREATE TABLE fan(
@@ -68,7 +69,9 @@ CREATE TABLE allocation(
     FOREIGN KEY (parking_lot, parking_space) REFERENCES parking_space(lot, number),
 
     FOREIGN KEY (event_name, event_date) REFERENCES event(name, event_date),
-    FOREIGN KEY (employee_park, employee_return) REFERENCES parking_employee(id)
+
+    FOREIGN KEY (employee_park) REFERENCES parking_employee(id),
+    FOREIGN KEY (employee_return) REFERENCES parking_employee(id)
 );
 
 CREATE TABLE parking_employee (
@@ -95,7 +98,8 @@ INSERT INTO fan(phone, name) VALUES (7268905647, 'Jeff Jefferson'),
                                  (0001112222, 'Barney the Dino'),
                                  (1234509876, 'Big Bird'),
                                  (1211121121, 'Anonymous Fan'),
-                                 (0010010001, 'Mans Mannerson');
+                                 (0010010001, 'Mans Mannerson'),
+                                 (1112223333, 'Jeff Jefferson');
 
 INSERT INTO car (license_plate, vehicle_type, fan) VALUES ('LOLSPD', 'Sedan', 7268905647),
                                                           ('2FST4U', 'Minivan', 7028584599),
@@ -103,7 +107,9 @@ INSERT INTO car (license_plate, vehicle_type, fan) VALUES ('LOLSPD', 'Sedan', 72
                                                           ('2SlWLOL', 'RV', 1234509876),
                                                           ('1234ABC', 'Sedan', 1211121121),
                                                           ('COWBOYZ', 'SUV', 0001112222),
-                                                          ('TESTTST', 'Minivan', 0010010001);
+                                                          ('TESTTST', 'Minivan', 0010010001),
+                                                          ('1234567', 'Truck', 1234567890),
+                                                          ('7654321', 'Truck', 1112223333);
 
 INSERT INTO stadium (name, address) VALUES
     ('Cowpokes Stadium', '555 Fan Ave, Arlington, TX'),
@@ -124,64 +130,89 @@ INSERT INTO event (name, event_date, start_time, end_time, stadium) VALUES
     ('Practice Scrim', '2021-11-18', '17:30', '20:30', 'The Rodeo');
 
 
-INSERT INTO parking_space (number, lot, car, available, handicap) VALUES
-    (0001, 'cA', NULL, True, True),
-    (0002, 'cA', NULL, True, False),
-    (0003, 'cA', NULL, True, False),
-    (0004, 'cA', NULL, True, False),
-    (0005, 'cA', NULL, True, False),
+INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALUES
+    (0001, 'cA', NULL, True, True, False),
+    (0002, 'cA', NULL, True, False, False),
+    (0003, 'cA', NULL, True, False, False),
+    (0004, 'cA', NULL, True, False, False),
+    (0005, 'cA', NULL, True, False, False),
 
-    (0001, 'cB', NULL, True, True),
-    (0002, 'cB', NULL, True, False),
-    (0003, 'cB', NULL, True, False),
-    (0004, 'cB', NULL, True, False),
-    (0005, 'cB', NULL, True, False),
+    (0001, 'cB', NULL, True, True, False),
+    (0002, 'cB', NULL, True, False, False),
+    (0003, 'cB', NULL, True, False, False),
+    (0004, 'cB', NULL, True, False, False),
+    (0005, 'cB', NULL, True, False, False),
 
-    (0001, 'cC', NULL, True, True),
-    (0002, 'cC', NULL, True, False),
-    (0003, 'cC', NULL, True, False),
-    (0004, 'cC', NULL, True, False),
-    (0005, 'cC', NULL, True, False),
+    (0001, 'cC', NULL, True, True, False),
+    (0002, 'cC', NULL, True, False, False),
+    (0003, 'cC', NULL, True, False, False),
+    (0004, 'cC', NULL, True, False, False),
+    (0005, 'cC', NULL, True, False, False),
 
-    (0001, 'rA', NULL, True, True),
-    (0002, 'rA', NULL, True, False),
-    (0003, 'rA', NULL, True, False),
-    (0004, 'rA', NULL, True, False),
-    (0005, 'rA', NULL, True, False),
+    (0001, 'rA', NULL, True, True, False),
+    (0002, 'rA', NULL, True, False, False),
+    (0003, 'rA', NULL, True, False, False),
+    (0004, 'rA', NULL, True, False, False),
+    (0005, 'rA', NULL, True, False, False),
 
-    (0001, 'rB', NULL, True, True),
-    (0002, 'rB', NULL, True, False),
-    (0003, 'rB', NULL, True, False),
-    (0004, 'rB', NULL, True, False),
-    (0005, 'rB', NULL, True, False),
+    (0001, 'rB', NULL, True, True, False),
+    (0002, 'rB', NULL, True, False, False),
+    (0003, 'rB', NULL, True, False, False),
+    (0004, 'rB', NULL, True, False, False),
+    (0005, 'rB', NULL, True, False, False),
 
-    (0001, 'rC', NULL, True, True),
-    (0002, 'rC', NULL, True, False),
-    (0003, 'rC', NULL, True, False),
-    (0004, 'rC', NULL, True, False),
-    (0005, 'rC', NULL, True, False);
+    (0001, 'rC', NULL, True, True, False),
+    (0002, 'rC', NULL, True, False, False),
+    (0003, 'rC', NULL, True, False, False),
+    (0004, 'rC', NULL, True, False, False),
+    (0005, 'rC', NULL, True, False, False);
 
-INSERT INTO parking_employee (name, parking_lot) VALUES ('Working Man', 'cA'),
-                                                         ('Billy Worker', 'cA'),
-                                                         ('Jeff Workman', 'cA'),
-                                                         ('Bob Bobbyson', 'cB'),
-                                                         ('Test Man', 'cB'),
-                                                         ('Jeff Goldblum', 'cB'),
-                                                         ('Phil Collins', 'rA'),
-                                                         ('Nick Jonas', 'rA'),
-                                                         ('Kevin Jonas', 'rA'),
-                                                         ('Joe Jonas', 'rC'),
-                                                         ('Bonus Jonas', 'rC'),
-                                                         ('Demi Lovato', 'rC');
+INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALUES (0010, 'cA', NULL, False, False, True),
+                                                                                   (0011, 'cA', NULL, False, False, True),
+                                                                                   (0010, 'cB', NULL, False, False, True),
+                                                                                   (0011, 'cB', NULL, False, False, True),
+                                                                                   (0010, 'rA', NULL, False, False, True),
+                                                                                   (0010, 'rB', NULL, False, False, True),
+                                                                                   (0010, 'rC', NULL, False, False, True);
 
-INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, event_date) VALUES ('cA', 0002, 'LOLSPD', 13,'Big Ol Tourney', '2022-02-19'),
-                                                                                                  ('cA', 0005, '2SlWLOL', 15,'Big Ol Tourney', '2022-02-19'),
-                                                                                                  ('cB', 0001, 'SDDEMN', 18,'Small Lil Tourney', '2021-12-29'),
-                                                                                                  ('cB', 0003, 'COWBOYZ', 17, 'Small Lil Tourney', '2021-12-29'),
-                                                                                                  ('rA', 0003, '1234ABC', 33,'Practice Scrim', '2021-11-18'),
-                                                                                                  ('rA', 0002, 'COWBOYZ', 34,'Practice Scrim', '2021-11-18'),
-                                                                                                  ('rC', 0001, '2FST4U', 35,'Practice Scrim', '2022-01-28'),
-                                                                                                  ('rC', 0003, 'TESTTST', 35,'Practice Scrim', '2022-01-28');
+INSERT INTO parking_employee (name, parking_lot, valet_certified) VALUES ('Working Man', 'cA', True),
+                                                         ('Billy Worker', 'cA', False),
+                                                         ('Jeff Workman', 'cA', True),
+                                                         ('Bob Bobbyson', 'cB', False),
+                                                         ('Test Man', 'cB', False),
+                                                         ('Jeff Goldblum', 'cB', True),
+                                                         ('Phil Collins', 'rA', False),
+                                                         ('Nick Jonas', 'rA', True),
+                                                         ('Kevin Jonas', 'rA', True),
+                                                         ('Joe Jonas', 'rC', False),
+                                                         ('Bonus Jonas', 'rC', True),
+                                                         ('Demi Lovato', 'rC', False);
+
+INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, event_date, is_Valet) VALUES
+    ('cA', 0002, 'LOLSPD', 13,'Big Ol Tourney', '2022-02-19', False),
+    ('cA', 0005, '2SlWLOL', 15,'Big Ol Tourney', '2022-02-19', False),
+    ('cB', 0001, 'SDDEMN', 18,'Small Lil Tourney', '2021-12-29', False),
+    ('cB', 0003, 'COWBOYZ', 17, 'Small Lil Tourney', '2021-12-29', False),
+    ('rA', 0003, '1234ABC', 33,'Practice Scrim', '2021-11-18', False),
+    ('rA', 0002, 'COWBOYZ', 34,'Practice Scrim', '2021-11-18', False),
+    ('rC', 0001, '2FST4U', 35,'Practice Scrim', '2022-01-28', False),
+    ('rC', 0003, 'TESTTST', 35,'Practice Scrim', '2022-01-28', False);
+
+-- VALET
+INSERT INTO allocation(parking_lot, parking_space, car, employee, event_name, event_date, is_Valet, employee_park, employee_return) VALUES
+    ('cA', 0010, 1234567, 1, 'Big Ol Tourney', '2022-02-19', True, 1, 3),
+    ('cB', 0011, 1234567, 6, 'Small Lil Tourney', '2021-12-29', True, 6, 6),
+    ('cA', 0011, 7654321, 3, 'Small Lil Tourney', '2021-12-29', True, 3, 1),
+    ('rA', 0010, 1234567, 9, 'Practice Scrim', '2021-11-18', True, 8, 8),
+    ('rC', 0010, 7654321, 9, 'Practice Scrim', '2021-11-18', True, 9, 10);
+
+INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALUES (0010, 'cA', NULL, False, False, True),
+                                                                                   (0011, 'cA', NULL, False, False, True),
+                                                                                   (0010, 'cB', NULL, False, False, True),
+                                                                                   (0011, 'cB', NULL, False, False, True),
+                                                                                   (0010, 'rA', NULL, False, False, True),
+                                                                                   (0010, 'rB', NULL, False, False, True),
+                                                                                   (0010, 'rC', NULL, False, False, True);
 
 INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol Tourney', '2022-02-19', 7268905647),
                                                                       ('Big Ol Tourney', '2022-02-19', 1234509876),
@@ -232,3 +263,6 @@ JOIN allocation ON license_plate = allocation.car
 GROUP BY car.vehicle_type;
 
 -- On average, how many vehicles come to an event?
+
+-- How many total valet spots are there in all parking lots?
+-- What are the names of the fans who's cars have been valeted?
