@@ -191,4 +191,44 @@ INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol T
                                                                       ('Practice Scrim', '2021-11-18', 1112222),
                                                                       ('Practice Scrim', '2021-11-18', 1211121121);
 
-SELECT * FROM car INNER JOIN allocation ON  event_date = '2022-01-28' AND license_plate = allocation.car;
+-- QUERIES --
+-- How many total parking spaces do I have?
+SELECT count(*) FROM parking_space;
+
+-- How many parking lots are there at Cowpokes Stadium?
+SELECT count(*) FROM parking_lot
+WHERE parking_lot.stadium = 'Cowpokes Stadium';
+
+-- How many parking spaces are there at Cowpokes Stadium?
+SELECT count(*) FROM parking_space
+JOIN parking_lot ON parking_space.lot = parking_lot.name
+WHERE parking_lot.stadium = 'Cowpokes Stadium';
+
+-- What parking spaces are currently available for use?
+SELECT lot, number FROM parking_space
+WHERE available = TRUE;
+
+-- What parking spaces ended up being used for Event 1?
+SELECT parking_lot, parking_space FROM allocation
+WHERE event_name = 'Big Ol Tourney' AND event_date = '2022-02-19';
+
+-- What parking spaces ended up being used for Event 2?
+SELECT parking_lot, parking_space FROM allocation
+WHERE event_name = 'Small Lil Tourney' AND event_date = '2021-12-29';
+
+-- What employees occupy lot 2 at Rodeo Stadium?
+SELECT id, parking_employee.name, parking_lot.stadium FROM parking_employee
+JOIN parking_lot ON parking_employee.parking_lot = parking_lot.name
+WHERE parking_lot.stadium = 'The Rodeo';
+
+-- How many Trucks have parked at any of my venues?
+SELECT count(*) FROM car
+JOIN allocation ON license_plate = allocation.car
+WHERE car.vehicle_type = 'Truck';
+
+-- How many of each vehicle type have parked at any of my venues?
+SELECT vehicle_type, count(*) FROM car
+JOIN allocation ON license_plate = allocation.car
+GROUP BY car.vehicle_type;
+
+-- On average, how many vehicles come to an event?
