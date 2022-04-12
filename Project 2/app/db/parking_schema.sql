@@ -202,7 +202,7 @@ INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, e
 UPDATE parking_space
     SET available = FALSE,
         car = parking_db.allocation.car
-FROM parking_db.allocation WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
+WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
                 AND parking_space.number = parking_db.allocation.parking_space;
 
 -- VALET
@@ -217,7 +217,7 @@ INSERT INTO allocation(parking_lot, parking_space, car, employee, event_name, ev
 UPDATE parking_space
     SET available = FALSE,
         car = parking_db.allocation.car
-FROM parking_db.allocation WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
+WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
                 AND parking_db.parking_space.number = parking_db.allocation.parking_space;
 
 INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol Tourney', '2022-02-19', 7268905647),
