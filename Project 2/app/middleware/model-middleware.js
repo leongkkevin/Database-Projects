@@ -1,4 +1,4 @@
-const connectToDatabase = require('../models/db-help');
+const connectToDatabase = require('./models/db-help');
 
 const createModelsMiddleware = async (req, res, next) => {
     console.log('Connecting to the database');

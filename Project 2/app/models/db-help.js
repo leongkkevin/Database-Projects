@@ -15,9 +15,6 @@ const connectToDatabase = async () => {
         const DBCreateConnection = util.promisify(DBConnection.connect).bind(DBConnection);
         await DBCreateConnection();
 
-        // We return two things: a function that lets us run queries, and another to
-        // disconnect from the DB at the end of a route. We don't want connections lingering
-        // because we didn't clean up
         const DBquery = util.promisify(DBConnection.query).bind(DBConnection);
         const disconnect = () => DBConnection.end();
         return { DBquery, disconnect };
