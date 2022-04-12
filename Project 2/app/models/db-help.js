@@ -3,9 +3,9 @@ const util = require('util');
 
 const connectToDatabase = async () => {
     try {
-        // Change these parameters to whatever your credentials may be
         const DBConnection = mysql.createConnection({
             host: 'localhost',
+            port: 3306,
             user: 'root',
             password: '',
             insecureAuth: true,
