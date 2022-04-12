@@ -7,9 +7,9 @@ const connectToDatabase = async () => {
         const DBConnection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: 'password',
+            password: '',
             insecureAuth: true,
-            database: 'smu'
+            database: 'parking_db'
         });
 
         const DBCreateConnection = util.promisify(DBConnection.connect).bind(DBConnection);
