@@ -228,3 +228,4 @@ INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol T
                                                                       ('Practice Scrim', '2021-11-18', 1112222),
                                                                       ('Practice Scrim', '2021-11-18', 1211121121);
 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
