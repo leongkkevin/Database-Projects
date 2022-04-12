@@ -8,7 +8,6 @@ CREATE TABLE fan(
 CREATE TABLE car (
     license_plate VARCHAR(10) PRIMARY KEY,
     vehicle_type VARCHAR(50),
-
     fan BIGINT,
     FOREIGN KEY (fan) REFERENCES fan(phone)
 );
@@ -63,14 +62,14 @@ CREATE TABLE allocation(
     parking_space INT,
 
     car VARCHAR(10),
-    employee INT,
+    employee BIGINT UNSIGNED,
 
     event_name VARCHAR(50),
     event_date DATE,
 
     is_Valet BOOLEAN,
-    employee_park INT,
-    employee_return INT,
+    employee_park BIGINT UNSIGNED,
+    employee_return BIGINT UNSIGNED,
 
     FOREIGN KEY(car) REFERENCES car(license_plate),
 
@@ -202,9 +201,9 @@ INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, e
 -- updates occupied parking spaces to be unavailable and store license plate of car
 UPDATE parking_space
     SET available = FALSE,
-        car = allocation.car
-FROM allocation WHERE parking_space.lot = allocation.parking_lot
-                AND parking_space.number = allocation.parking_space;
+        car = parking_db.allocation.car
+FROM parking_db.allocation WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
+                AND parking_space.number = parking_db.allocation.parking_space;
 
 -- VALET
 INSERT INTO allocation(parking_lot, parking_space, car, employee, event_name, event_date, is_Valet, employee_park, employee_return) VALUES
@@ -217,9 +216,9 @@ INSERT INTO allocation(parking_lot, parking_space, car, employee, event_name, ev
 -- updates occupied parking spaces to be unavailable and store license plate of car
 UPDATE parking_space
     SET available = FALSE,
-        car = allocation.car
-FROM allocation WHERE parking_space.lot = allocation.parking_lot
-                AND parking_space.number = allocation.parking_space;
+        car = parking_db.allocation.car
+FROM parking_db.allocation WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
+                AND parking_db.parking_space.number = parking_db.allocation.parking_space;
 
 INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol Tourney', '2022-02-19', 7268905647),
                                                                       ('Big Ol Tourney', '2022-02-19', 1234509876),
@@ -228,3 +227,4 @@ INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol T
                                                                       ('Practice Scrim', '2022-01-28', 10010001),
                                                                       ('Practice Scrim', '2021-11-18', 1112222),
                                                                       ('Practice Scrim', '2021-11-18', 1211121121);
+
