@@ -3,14 +3,9 @@ const router = express.Router();
 const parking_space = require('../models/parking_space');
 
 router.get('/', async (req, res, next) => {
-    const allSpots = await parking_space.fetchAllSpots();
-    res.json(allSpots);
-    next();
-});
-
-router.get('/spots?stadium=[stadium_id]&lot=[lot_id]&available=[available]', async (req, res, next) => {
     try {
-        const spots = await parking_space.fetchSpots(req.params.stadium_id, req.params.lot_id, req.params.available);
+        console.log(req.query)
+        const spots = await parking_space.fetchSpots(req.query.stadium, req.query.lot, req.query.available)
         res.json(spots);
     } catch (err) {
         console.error('Failed to load current user:', err);
