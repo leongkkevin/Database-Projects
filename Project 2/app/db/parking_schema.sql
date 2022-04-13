@@ -64,14 +64,14 @@ CREATE TABLE parking_db.allocation(
     parking_space INT,
 
     car VARCHAR(10),
-    employee INT,
+    employee VARCHAR(50),
 
     event_name VARCHAR(50),
     event_date DATE,
 
     is_Valet BOOLEAN,
-    employee_park INT,
-    employee_return INT,
+    employee_park VARCHAR(50),
+    employee_return VARCHAR(50),
 
     FOREIGN KEY(car) REFERENCES car(license_plate),
 
@@ -186,28 +186,28 @@ INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALU
                                                                                    (0010, 'rB', NULL, False, False, True),
                                                                                    (0010, 'rC', NULL, False, False, True);
 
-INSERT INTO parking_employee (name, parking_lot, valet_certified) VALUES ('Working Man', 'cA', True),
-                                                         ('Billy Worker', 'cA', False),
-                                                         ('Jeff Workman', 'cA', True),
-                                                         ('Bob Bobbyson', 'cB', False),
-                                                         ('Test Man', 'cB', False),
-                                                         ('Jeff Goldblum', 'cB', True),
-                                                         ('Phil Collins', 'rB', False),
-                                                         ('Nick Jonas', 'rA', True),
-                                                         ('Kevin Jonas', 'rB', True),
-                                                         ('Joe Jonas', 'rC', False),
-                                                         ('Bonus Jonas', 'rC', True),
-                                                         ('Demi Lovato', 'rC', False);
+INSERT INTO employee (name, username, parking_lot, valet_certified) VALUES ('Working Man', 'wm', 'cA', True),
+                                                         ('Billy Worker', 'bw', 'cA', False),
+                                                         ('Jeff Workman', 'jw', 'cA', True),
+                                                         ('Bob Bobbyson', 'bb','cB', False),
+                                                         ('Test Man', 'tm','cB', False),
+                                                         ('Jeff Goldblum', 'jg','cB', True),
+                                                         ('Phil Collins', 'pc','rB', False),
+                                                         ('Nick Jonas', 'nj','rA', True),
+                                                         ('Kevin Jonas', 'kj', 'rB', True),
+                                                         ('Joe Jonas', 'jj', 'rC', False),
+                                                         ('Bonus Jonas', 'bj', 'rC', True),
+                                                         ('Demi Lovato', 'dl', 'rC', False);
 
 INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, event_date, is_Valet) VALUES
-    ('cA', 0002, 'LOLSPD', 1,'Big Ol Tourney', '2022-02-19', False),
-    ('cA', 0005, '2SlWLOL', 3,'Big Ol Tourney', '2022-02-19', False),
-    ('cB', 0001, 'SPDDEMN', 4,'Small Lil Tourney', '2021-12-29', False),
-    ('cB', 0003, 'COWBOYZ', 5, 'Small Lil Tourney', '2021-12-29', False),
-    ('rA', 0003, '1234ABC', 8,'Practice Scrim', '2021-11-18', False),
-    ('rB', 0002, 'COWBOYZ', 9,'Practice Scrim', '2021-11-18', False),
-    ('rB', 0001, '2FST4U', 7,'Practice Scrim', '2022-01-28', False),
-    ('rC', 0003, 'TESTTST', 6,'Practice Scrim', '2022-01-28', False);
+    ('cA', 0002, 'LOLSPD', 'bw','Big Ol Tourney', '2022-02-19', False),
+    ('cA', 0005, '2SlWLOL', 'jw','Big Ol Tourney', '2022-02-19', False),
+    ('cB', 0001, 'SPDDEMN', 'tm','Small Lil Tourney', '2021-12-29', False),
+    ('cB', 0003, 'COWBOYZ', 'bj', 'Small Lil Tourney', '2021-12-29', False),
+    ('rA', 0003, '1234ABC', 'pc','Practice Scrim', '2021-11-18', False),
+    ('rB', 0002, 'COWBOYZ', 'pc','Practice Scrim', '2021-11-18', False),
+    ('rB', 0001, '2FST4U', 'jg','Practice Scrim', '2022-01-28', False),
+    ('rC', 0003, 'TESTTST', 'nj','Practice Scrim', '2022-01-28', False);
 
 -- updates occupied parking spaces to be unavailable and store license plate of car
 UPDATE parking_space
