@@ -6,6 +6,7 @@ const fetchAllStadiumSpots = async(stadium_name) => {
     const result = await query;
     return result;
 }
+
 const fetchAllLots = async() => {
     const query = knex(PARKING_LOT_TABLE);
     const result = await query;
