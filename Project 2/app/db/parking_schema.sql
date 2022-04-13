@@ -1,23 +1,24 @@
 CREATE DATABASE parking_db;
 
-CREATE TABLE fan(
+CREATE TABLE parking_db.fan(
     phone BIGINT PRIMARY KEY,
     name VARCHAR(50)
 );
 
-CREATE TABLE car (
+CREATE TABLE parking_db.car (
     license_plate VARCHAR(10) PRIMARY KEY,
     vehicle_type VARCHAR(50),
+
     fan BIGINT,
-    FOREIGN KEY (fan) REFERENCES fan(phone)
+    FOREIGN KEY (fan) REFERENCES parking_db.fan(phone)
 );
 
-CREATE TABLE stadium (
+CREATE TABLE parking_db.stadium (
     name VARCHAR(30) PRIMARY KEY,
     address VARCHAR(50)
 );
 
-CREATE TABLE event(
+CREATE TABLE parking_db.event(
     name VARCHAR(50),
     event_date DATE,
     PRIMARY KEY (name, event_date),
@@ -26,69 +27,79 @@ CREATE TABLE event(
     end_time TIME,
 
     stadium VARCHAR(30),
-    FOREIGN KEY (stadium) REFERENCES stadium(name)
+    FOREIGN KEY (stadium) REFERENCES parking_db.stadium(name)
 );
 
-CREATE TABLE parking_lot (
+CREATE TABLE parking_db.parking_lot (
     name VARCHAR(2) PRIMARY KEY,
     stadium VARCHAR(30),
-    FOREIGN KEY (stadium) REFERENCES stadium(name)
+    FOREIGN KEY (stadium) REFERENCES parking_db.stadium(name)
 );
 
-CREATE TABLE parking_space (
+CREATE TABLE parking_db.parking_space (
     number INT,
     lot VARCHAR(2),
     car VARCHAR(10),
     available BOOLEAN,
     handicap BOOLEAN,
     is_Valet BOOLEAN,
-    FOREIGN KEY (lot) REFERENCES parking_lot(name),
-    FOREIGN KEY (car) REFERENCES car(license_plate),
+    FOREIGN KEY (lot) REFERENCES parking_db.parking_lot(name),
+    FOREIGN KEY (car) REFERENCES parking_db.car(license_plate),
     PRIMARY KEY (number, lot)
 );
 
-CREATE TABLE parking_employee (
-    id SERIAL PRIMARY KEY,
+CREATE TABLE parking_db.employee (
     name VARCHAR(50),
+    username VARCHAR(50) PRIMARY KEY ,
+    password VARCHAR(100),
     parking_lot VARCHAR(2),
     valet_certified BOOLEAN,
-    FOREIGN KEY (parking_lot) REFERENCES parking_lot(name)
+    FOREIGN KEY (parking_lot) REFERENCES parking_db.parking_lot(name)
 );
 
-CREATE TABLE allocation(
+CREATE TABLE parking_db.allocation(
     id SERIAL PRIMARY KEY,
 
     parking_lot VARCHAR(2),
     parking_space INT,
 
     car VARCHAR(10),
-    employee BIGINT UNSIGNED,
+    employee INT,
 
     event_name VARCHAR(50),
     event_date DATE,
 
     is_Valet BOOLEAN,
-    employee_park BIGINT UNSIGNED,
-    employee_return BIGINT UNSIGNED,
+    employee_park INT,
+    employee_return INT,
 
     FOREIGN KEY(car) REFERENCES car(license_plate),
 
-    FOREIGN KEY (employee) REFERENCES parking_employee(id),
-    FOREIGN KEY (parking_lot, parking_space) REFERENCES parking_space(lot, number),
+    FOREIGN KEY (employee) REFERENCES employee(username),
+    FOREIGN KEY (parking_lot, parking_space) REFERENCES parking_db.parking_space(lot, number),
 
-    FOREIGN KEY (event_name, event_date) REFERENCES event(name, event_date),
+    FOREIGN KEY (event_name, event_date) REFERENCES parking_db.event(name, event_date),
 
-    FOREIGN KEY (employee_park) REFERENCES parking_employee(id),
-    FOREIGN KEY (employee_return) REFERENCES parking_employee(id)
+    FOREIGN KEY (employee_park) REFERENCES employee(username),
+    FOREIGN KEY (employee_return) REFERENCES employee(username)
 );
 
-CREATE TABLE event_fan_join(
+CREATE TABLE parking_db.event_fan_join(
     event_name VARCHAR(50),
     event_date DATE,
     fan_phone BIGINT,
 
-    FOREIGN KEY (event_name, event_date) REFERENCES event(name, event_date),
-    FOREIGN KEY (fan_phone) REFERENCES fan(phone)
+    FOREIGN KEY (event_name, event_date) REFERENCES parking_db.event(name, event_date),
+    FOREIGN KEY (fan_phone) REFERENCES parking_db.fan(phone)
+);
+
+CREATE TABLE parking_db.session (
+    token VARCHAR(50),
+    username VARCHAR(50),
+    email VARCHAR(50),
+    password VARCHAR(100),
+
+    PRIMARY KEY (token)
 );
 
 INSERT INTO fan(phone, name) VALUES (7268905647, 'Jeff Jefferson'),
@@ -227,5 +238,3 @@ INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol T
                                                                       ('Practice Scrim', '2022-01-28', 10010001),
                                                                       ('Practice Scrim', '2021-11-18', 1112222),
                                                                       ('Practice Scrim', '2021-11-18', 1211121121);
-
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
