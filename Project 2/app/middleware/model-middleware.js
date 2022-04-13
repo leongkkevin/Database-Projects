@@ -1,4 +1,4 @@
-const Account = require('../models/account');
+const Employee = require('../models/employee');
 const Session = require('../models/session');
 
 /**
@@ -11,7 +11,7 @@ const Session = require('../models/session');
 const createModelsMiddleware = async (req, res, next) => {
     console.log('Creating models in middleware');
     req.models = {
-        account: Account,
+        employee: Employee,
         session: Session
     }
     next();

@@ -6,10 +6,13 @@ router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
         
-        const result = await req.models.user.authenticateUser(body.email, body.password);
-        res.status(201).json(result);
+        const result = await req.models.employee.authenticateAccount(body.username, body.password);
 
-        models.session.createSession(result, body.username, body.password);
+        if (result) {
+            req.models.session.createSession()
+        }
+
+        res.status(201).json(result);
 
     } catch (err) {
         console.error('Failed to create new user:', err);

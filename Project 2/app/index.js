@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const parking_lotRoutes = require('./routes/parking_lot');
 const parking_spaceRoutes = require('./routes/parking_space');
-const accountRoutes = require('./routes/account')
+const employeeRoutes = require('./routes/account')
 const sessionRoutes = require('./routes/session');
 
 // Import any middleware here
@@ -29,7 +29,7 @@ app.get('/health', (request, response, next) => {
 
 app.use('/parking_lot', parking_lotRoutes);
 app.use('/parking_space', parking_spaceRoutes);
-app.use('/account', accountRoutes);
+app.use('/account', employeeRoutes);
 app.use('/session', sessionRoutes);
 
 // Now that we've configured the app, make it listen for incoming requests
