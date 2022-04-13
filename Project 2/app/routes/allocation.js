@@ -14,9 +14,20 @@ router.post('/', async (req, res, next) => {
 
     try {
         await allocation.postAllocation(parking_space, car).then( function (result) {
-            res.status(200).json({success: 1, error: ""}).send();   
+            res.status(201).json({success: 1, error: ""}).send();   
     })
     } catch (error) {
+        return next(error);
+    }
+});
+
+router.delete('/:allocation_id', async (req, res, next) => {
+    try{ 
+        await allocation.deleteAllocation(req.params.allocation_id).then( function() {
+            res.status(201).json({success: 1, error: ""}).send();   
+
+        })
+    } catch (error){
         return next(error);
     }
 });
