@@ -35,7 +35,7 @@ router.delete('/:allocation_id', async (req, res, next) => {
 router.put('/:allocation_id', async (req, res, next) => {
     try{ 
         await allocation.putAllocation(req.params.allocation_id, req.body).then( function() {
-            res.status(201).json({success: 1, error: ""}).send();   
+            res.status(200).json({success: 1, error: ""}).send();   
 
         })
     } catch (error){

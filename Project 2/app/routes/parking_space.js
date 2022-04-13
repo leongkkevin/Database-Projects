@@ -8,9 +8,9 @@ router.get('/', async (req, res, next) => {
     next();
 });
 
-router.get('/spots/:stadium_id?/:lot_id?/:available?', async (req, res, next) => {
+router.get('/:stadium_id?/:lot_id?/:available?', async (req, res, next) => {
     try {
-        const spots = await parking_space.fetchSpots(req.params.stadium_id, req.params.lot_id, req.params.available);
+        const spots = await parking_space.fetchSpots(req.params.stadium_id, req.params.lot_id, req.params.available)
         res.json(spots);
     } catch (err) {
         console.error('Failed to load current user:', err);
