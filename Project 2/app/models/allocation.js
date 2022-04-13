@@ -19,8 +19,15 @@ const deleteAllocation = async(allocation_id) => {
     return result;
 }
 
+const putAllocation = async(allocation_id, body) => {
+    const query = knex(ALLOCATION_TABLE).where('id', allocation_id).update({parking_space: body.parking_space, car: body.car})
+    const result = await query;
+    return result;
+}
+
 module.exports = {
     fetchAllAllocations,
     postAllocation,
-    deleteAllocation
+    deleteAllocation,
+    putAllocation
 }

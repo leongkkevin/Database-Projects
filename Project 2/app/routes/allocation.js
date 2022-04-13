@@ -24,6 +24,17 @@ router.post('/', async (req, res, next) => {
 router.delete('/:allocation_id', async (req, res, next) => {
     try{ 
         await allocation.deleteAllocation(req.params.allocation_id).then( function() {
+            res.status(204).json({success: 1, error: ""}).send();   
+
+        })
+    } catch (error){
+        return next(error);
+    }
+});
+
+router.put('/:allocation_id', async (req, res, next) => {
+    try{ 
+        await allocation.putAllocation(req.params.allocation_id, req.body).then( function() {
             res.status(201).json({success: 1, error: ""}).send();   
 
         })
@@ -31,5 +42,6 @@ router.delete('/:allocation_id', async (req, res, next) => {
         return next(error);
     }
 });
+
 
 module.exports = router;
