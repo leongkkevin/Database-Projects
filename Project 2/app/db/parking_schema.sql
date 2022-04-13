@@ -186,7 +186,7 @@ INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALU
                                                                                    (0010, 'rB', NULL, False, False, True),
                                                                                    (0010, 'rC', NULL, False, False, True);
 
-INSERT INTO parking_employee (name, username, password, parking_lot, valet_certified) VALUES ('Working Man', 'cA', True),
+INSERT INTO parking_employee (name, parking_lot, valet_certified) VALUES ('Working Man', 'cA', True),
                                                          ('Billy Worker', 'cA', False),
                                                          ('Jeff Workman', 'cA', True),
                                                          ('Bob Bobbyson', 'cB', False),
