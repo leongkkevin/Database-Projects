@@ -9,11 +9,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-    let parking_space = req.body.parking_space
-    let car = req.body.car
-
     try {
-        await allocation.postAllocation(parking_space, car).then( function (result) {
+        await allocation.postAllocation(req.body).then( function (result) {
             res.status(201).json({success: 1, error: ""}).send();   
     })
     } catch (error) {
