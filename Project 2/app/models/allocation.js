@@ -7,17 +7,25 @@ const fetchAllAllocations = async() => {
     return result;
 }
 
+const checkCar = async(body) => {
+    const query = knex('car').where('license_plate', body.car);
+    const result = await query;
+    return result;
+}
+
+const addCar = async(body) => {
+    const query = knex('car').insert({license_plate: body.car});
+    const result = await query;
+    return result;
+}
+
 const postAllocation = async(body) => {
 
-    // const checkCar = knex('car').where('license_plate', body.car).count('license_plate').then(function(carCount){
-    //     carCnt = carCount[0].CNT
-    // });
+    const ans = await checkCar(body);
 
-    // if(checkCar == 0){
-    //     const addCar = knex('car').insert({license_plate: body.car})
-    //     const resultCar = await addCar;
-    //     console.log("DSDF" + addCar)
-    // } 
+    if(ans.length == 0){
+        const insertCar = await addCar(body);
+    } 
 
     const query = knex(ALLOCATION_TABLE).insert({parking_space: body.parking_space, car: body.car})
     const result = await query;
