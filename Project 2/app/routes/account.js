@@ -16,7 +16,7 @@ router.post('/', async (req, res, next) => {
         res.status(201).json(result);
     } catch (err) {
         console.error('Failed to create new account:', err);
-        res.status(500).json({ message: err.toString() });
+        res.status(400).json({ message: err.toString() });
     }
     next();
 })

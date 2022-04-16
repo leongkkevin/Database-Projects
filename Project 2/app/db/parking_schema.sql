@@ -94,7 +94,7 @@ CREATE TABLE parking_db.event_fan_join(
 );
 
 CREATE TABLE parking_db.session (
-    token VARCHAR(50),
+    token VARCHAR(250),
     username VARCHAR(50),
     email VARCHAR(50),
     password VARCHAR(100),
@@ -102,7 +102,8 @@ CREATE TABLE parking_db.session (
     PRIMARY KEY (token)
 );
 
-INSERT INTO fan(phone, name) VALUES (7268905647, 'Jeff Jefferson'),
+
+INSERT INTO parking_db.fan(phone, name) VALUES (7268905647, 'Jeff Jefferson'),
                                  (1234567890, 'Be Yonce'),
                                  (8945673421, 'Jay Kynerd'),
                                  (7028584599, 'Kevin Leong'),
@@ -112,7 +113,7 @@ INSERT INTO fan(phone, name) VALUES (7268905647, 'Jeff Jefferson'),
                                  (0010010001, 'Mans Mannerson'),
                                  (1112223333, 'Jeff Jefferson');
 
-INSERT INTO car (license_plate, vehicle_type, fan) VALUES ('LOLSPD', 'Sedan', 7268905647),
+INSERT INTO parking_db.car (license_plate, vehicle_type, fan) VALUES ('LOLSPD', 'Sedan', 7268905647),
                                                           ('2FST4U', 'Minivan', 7028584599),
                                                           ('SPDDEMN', 'Hatchback', 8945673421),
                                                           ('2SlWLOL', 'RV', 1234509876),
@@ -122,11 +123,11 @@ INSERT INTO car (license_plate, vehicle_type, fan) VALUES ('LOLSPD', 'Sedan', 72
                                                           ('1234567', 'Truck', 1234567890),
                                                           ('7654321', 'Truck', 1112223333);
 
-INSERT INTO stadium (name, address) VALUES
+INSERT INTO parking_db.stadium (name, address) VALUES
     ('Cowpokes Stadium', '555 Fan Ave, Arlington, TX'),
     ('The Rodeo', '123 Rodeo Way, Ft. Worth, TX');
 
-INSERT INTO parking_lot (name, stadium) VALUES
+INSERT INTO parking_db.parking_lot (name, stadium) VALUES
     ('cA', 'Cowpokes Stadium'),
     ('cB', 'Cowpokes Stadium'),
     ('cC', 'Cowpokes Stadium'),
@@ -134,14 +135,14 @@ INSERT INTO parking_lot (name, stadium) VALUES
     ('rB', 'The Rodeo'),
     ('rC', 'The Rodeo');
 
-INSERT INTO event (name, event_date, start_time, end_time, stadium) VALUES
+INSERT INTO parking_db.event (name, event_date, start_time, end_time, stadium) VALUES
     ('Big Ol Tourney', '2022-02-19', '19:30', '21:00', 'Cowpokes Stadium'),
     ('Small Lil Tourney', '2021-12-29', '21:30', '23:00', 'Cowpokes Stadium'),
     ('Practice Scrim', '2022-01-28', '18:30', '21:30', 'The Rodeo'),
     ('Practice Scrim', '2021-11-18', '17:30', '20:30', 'The Rodeo');
 
 
-INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALUES
+INSERT INTO parking_db.parking_space (number, lot, car, available, handicap, is_Valet) VALUES
     (0001, 'cA', NULL, True, True, False),
     (0002, 'cA', NULL, True, False, False),
     (0003, 'cA', NULL, True, False, False),
@@ -178,7 +179,7 @@ INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALU
     (0004, 'rC', NULL, True, False, False),
     (0005, 'rC', NULL, True, False, False);
 
-INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALUES (0010, 'cA', NULL, False, False, True),
+INSERT INTO parking_db.parking_space (number, lot, car, available, handicap, is_Valet) VALUES (0010, 'cA', NULL, False, False, True),
                                                                                    (0011, 'cA', NULL, False, False, True),
                                                                                    (0010, 'cB', NULL, False, False, True),
                                                                                    (0011, 'cB', NULL, False, False, True),
@@ -186,7 +187,7 @@ INSERT INTO parking_space (number, lot, car, available, handicap, is_Valet) VALU
                                                                                    (0010, 'rB', NULL, False, False, True),
                                                                                    (0010, 'rC', NULL, False, False, True);
 
-INSERT INTO employee (name, username, parking_lot, valet_certified) VALUES ('Working Man', 'wm', 'cA', True),
+INSERT INTO parking_db.employee (name, username, parking_lot, valet_certified) VALUES ('Working Man', 'wm', 'cA', True),
                                                          ('Billy Worker', 'bw', 'cA', False),
                                                          ('Jeff Workman', 'jw', 'cA', True),
                                                          ('Bob Bobbyson', 'bb','cB', False),
@@ -199,7 +200,7 @@ INSERT INTO employee (name, username, parking_lot, valet_certified) VALUES ('Wor
                                                          ('Bonus Jonas', 'bj', 'rC', True),
                                                          ('Demi Lovato', 'dl', 'rC', False);
 
-INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, event_date, is_Valet) VALUES
+INSERT INTO parking_db.allocation (parking_lot, parking_space, car, employee, event_name, event_date, is_Valet) VALUES
     ('cA', 0002, 'LOLSPD', 'bw','Big Ol Tourney', '2022-02-19', False),
     ('cA', 0005, '2SlWLOL', 'jw','Big Ol Tourney', '2022-02-19', False),
     ('cB', 0001, 'SPDDEMN', 'tm','Small Lil Tourney', '2021-12-29', False),
@@ -209,29 +210,8 @@ INSERT INTO allocation (parking_lot, parking_space, car, employee, event_name, e
     ('rB', 0001, '2FST4U', 'jg','Practice Scrim', '2022-01-28', False),
     ('rC', 0003, 'TESTTST', 'nj','Practice Scrim', '2022-01-28', False);
 
--- updates occupied parking spaces to be unavailable and store license plate of car
-UPDATE parking_space
-    SET available = FALSE,
-        car = parking_db.allocation.car
-WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
-                AND parking_space.number = parking_db.allocation.parking_space;
 
--- VALET
-INSERT INTO allocation(parking_lot, parking_space, car, employee, event_name, event_date, is_Valet, employee_park, employee_return) VALUES
-    ('cA', 0010, 1234567, 1, 'Big Ol Tourney', '2022-02-19', True, 1, 3),
-    ('cB', 0011, 1234567, 6, 'Small Lil Tourney', '2021-12-29', True, 6, 6),
-    ('cA', 0011, 7654321, 3, 'Small Lil Tourney', '2021-12-29', True, 3, 1),
-    ('rB', 0010, 1234567, 9, 'Practice Scrim', '2021-11-18', True, 8, 8),
-    ('rC', 0010, 7654321, 9, 'Practice Scrim', '2021-11-18', True, 9, 10);
-
--- updates occupied parking spaces to be unavailable and store license plate of car
-UPDATE parking_space
-    SET available = FALSE,
-        car = parking_db.allocation.car
-WHERE parking_db.parking_space.lot = parking_db.allocation.parking_lot
-                AND parking_db.parking_space.number = parking_db.allocation.parking_space;
-
-INSERT INTO event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol Tourney', '2022-02-19', 7268905647),
+INSERT INTO parking_db.event_fan_join (event_name, event_date, fan_phone) VALUES ('Big Ol Tourney', '2022-02-19', 7268905647),
                                                                       ('Big Ol Tourney', '2022-02-19', 1234509876),
                                                                       ('Small Lil Tourney', '2021-12-29', 1112222),
                                                                       ('Practice Scrim', '2022-01-28', 7028584599),

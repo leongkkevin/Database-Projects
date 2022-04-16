@@ -1,20 +1,29 @@
 const knex = require('../database/knex');
 
+const EMPLOYEE_TABLE = 'employee'
 const SESSION_TABLE = 'session';
 
-const createSession = async (token, username, password)  => {
-    try {
-        const query = knex(SESSION_TABLE).insert({ token, username, password })
-        console.log('Creating new session: ', query.toString());
-        const result = await query;
+const createSession = async (token, username)  => {
+    const query = knex(SESSION_TABLE).insert({ token, username })
+    console.log('Creating new session: ', query.toString());
+    const result = await query;
 
-        return result;
-    } catch (err) {
-        console.error("Error creating session query", err);
-        res.status(500).json({ message: err.toString() });
-    }
+    return result;
+}
+
+const getSession = async (token) => {
+    var query = knex(SESSION_TABLE).where({ token });
+    var result = await query;
+
+    const username = result[0]['username'];
+
+    query = knex(EMPLOYEE_TABLE).where({ username });
+    result = await query;
+
+    return result;
 }
 
 module.exports = {
-    createSession
+    createSession,
+    getSession
 }

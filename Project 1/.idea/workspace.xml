@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="06779513-d577-4682-9a24-a7fcfe57d7da" name="Changes" comment="" />
+    <list default="true" id="06779513-d577-4682-9a24-a7fcfe57d7da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0505cda5-7996-41a8-9bea-2cac976e2c12.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0505cda5-7996-41a8-9bea-2cac976e2c12.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1f2cd4a6-3e7c-4500-8598-9bc69d0f7aa5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1f2cd4a6-3e7c-4500-8598-9bc69d0f7aa5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 2/app/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 2/app/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 2/app/db/parking_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 2/app/db/parking_schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 2/app/models/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 2/app/models/session.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 2/app/routes/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 2/app/routes/account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 2/app/routes/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 2/app/routes/session.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
