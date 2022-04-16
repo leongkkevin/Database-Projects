@@ -39,6 +39,13 @@ const deleteAllocation = async(allocation_id) => {
 }
 
 const putAllocation = async(allocation_id, body) => {
+
+    const ans = await checkCar(body);
+
+    if(ans.length == 0){
+        const insertCar = await addCar(body);
+    } 
+    
     const query = knex(ALLOCATION_TABLE).where('id', allocation_id).update({parking_space: body.parking_space, car: body.car})
     const result = await query;
     return result;
