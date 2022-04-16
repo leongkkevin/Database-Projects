@@ -7,4 +7,5 @@ To run the app:
 2. Run `npm install` within the `/app` directory to install necessary dependencies
 3. Use the schema found in `db/parking_schema.sql` to make database, tables, etc.
 4. Connect to the database host and run API commands.
-_note: users must be added using `post/account`, so an account must be created before sessions_
+
+_note: user accounts must be added manually using `post/account`, so an account must be created before sessions_
