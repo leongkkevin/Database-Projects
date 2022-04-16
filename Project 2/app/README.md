@@ -1,4 +1,5 @@
 CS 3330 - Project 2
+
 Jay Kynerd & Kevin Leong
 
 To run the app:
